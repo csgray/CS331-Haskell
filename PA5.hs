@@ -7,33 +7,31 @@
 
 module PA5 where
 
-collatz :: Integer -> Integer
-collatz n
-  | odd n     = 3 * n + 1 
-  | otherwise = n `div` 2
-
-collatzSequence :: Integer -> [Integer]
-collatzSequence n
-  | n == 1    = 1 : []
-  | otherwise = n : collatzSequence (collatz n)
-
 -- collatzCounts
 collatzCounts :: [Integer]
 collatzCounts = map collatzLength [1..] where
   collatzLength n = toInteger (length (collatzSequence n) - 1)
-
-
-
+  collatzSequence n
+    | n == 1    = 1 : []
+    | otherwise = n : collatzSequence (collatz n)
+  collatz n
+    | odd n     = 3 * n + 1 
+    | otherwise = n `div` 2
 
 
 -- findList
 findList :: Eq a => [a] -> [a] -> Maybe Int
-findList _ _ = Just 42  -- DUMMY; REWRITE THIS!!!
+findList list1 list2 = Just 42  -- DUMMY; REWRITE THIS!!!
 
 
 -- operator ##
 (##) :: Eq a => [a] -> [a] -> Int
-_ ## _ = 42  -- DUMMY; REWRITE THIS!!!
+[] ## _ = 0
+_ ## [] = 0
+(x:xs) ## (y:ys)
+  | x == y    = xs ## ys + 1
+  | otherwise = xs ## ys 
+
 
 
 -- filterAB
