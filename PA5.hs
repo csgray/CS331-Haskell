@@ -1,6 +1,6 @@
 -- PA5.hs
 -- Corey S. Gray
--- 21 Mar 2018
+-- 16 April 2018
 --
 -- For CS F331 / CSCE A331 Spring 2018
 -- Solutions to Assignment 5 Exercise B
@@ -8,6 +8,8 @@
 module PA5 where
 
 -- collatzCounts
+-- Takes an integer n and returns a list of length n with each element in the list 
+-- being how many iterations of the Collatz function are required to take index + 1 to 1
 collatzCounts :: [Integer]
 collatzCounts = map collatzLength [1..] where
   collatzLength n = toInteger (length (collatzSequence n) - 1)
@@ -23,6 +25,8 @@ findList :: Eq a => [a] -> [a] -> Maybe Int
 findList list1 list2 = Just 42  -- DUMMY; REWRITE THIS!!!
 
 -- operator ##
+-- Takes two lists of the same type and
+-- returns the number of indices at which the two lists contain equal values
 (##) :: Eq a => [a] -> [a] -> Int
 [] ## _ = 0
 _ ## [] = 0
@@ -31,6 +35,8 @@ _ ## [] = 0
   | otherwise = xs ## ys 
 
 -- filterAB
+-- Takes a Boolean function and two lists then returns a list of all items
+-- for which the corresponding item in the first list makes the Boolean function true.
 filterAB :: (a -> Bool) -> [a] -> [b] -> [b]
 filterAB condition [] _ = []
 filterAB condition _ [] = []
