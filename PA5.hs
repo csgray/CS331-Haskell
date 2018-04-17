@@ -18,11 +18,9 @@ collatzCounts = map collatzLength [1..] where
     | odd n     = 3 * n + 1 
     | otherwise = n `div` 2
 
-
 -- findList
 findList :: Eq a => [a] -> [a] -> Maybe Int
 findList list1 list2 = Just 42  -- DUMMY; REWRITE THIS!!!
-
 
 -- operator ##
 (##) :: Eq a => [a] -> [a] -> Int
@@ -32,12 +30,13 @@ _ ## [] = 0
   | x == y    = xs ## ys + 1
   | otherwise = xs ## ys 
 
-
-
 -- filterAB
 filterAB :: (a -> Bool) -> [a] -> [b] -> [b]
-filterAB _ _ bs = bs  -- DUMMY; REWRITE THIS!!!
-
+filterAB condition [] _ = []
+filterAB condition _ [] = []
+filterAB condition (x:xs) (y:ys)
+  | condition x = y : filterAB condition xs ys
+  | otherwise   = filterAB condition xs ys
 
 -- sumEvenOdd
 sumEvenOdd :: Num a => [a] -> (a, a)
