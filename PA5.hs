@@ -56,4 +56,9 @@ filterAB condition (x:xs) (y:ys)
 -- Takes a list of numbers and returns a tuple of two numbers consisting of
 -- the sum of the even-index items and the sum of the odd-index items
 sumEvenOdd :: Num a => [a] -> (a, a)
-sumEvenOdd _ = (0, 0)  -- DUMMY; REWRITE THIS!!!
+sumEvenOdd numbers = foldr (sumTuple) (0, 0) (tupleList numbers)  where
+  sumTuple base numbers = (fst base + fst numbers, snd base + snd numbers)
+  tupleList :: Num a => [a] -> [(a, a)]
+  tupleList []        = []
+  tupleList [x]       = (x, 0) : []
+  tupleList (x:y:xys) = (x, y) : tupleList xys
