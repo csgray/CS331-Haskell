@@ -21,8 +21,16 @@ collatzCounts = map collatzLength [1..] where
     | otherwise = n `div` 2
 
 -- findList
+-- Takes two lists of the same type and returns the index of the first element in the second list
+-- which starts a contiguous sublist of the first list.
+-- If the first list is not found as a contiguous sublist of the second, the return value is Nothing.
 findList :: Eq a => [a] -> [a] -> Maybe Int
-findList list1 list2 = Just 42  -- DUMMY; REWRITE THIS!!!
+findList [] _  = Just 0
+findList xs ys = let n = 0 in listMatch xs ys n where
+  listMatch xs ys n
+    | length xs > length ys     = Nothing                        -- if xs is larger than ys then it can't be a sublist
+    | take (length xs) ys == xs = Just n                         -- if the first X elements of the second list are the same as the search list return the index
+    | otherwise                 = listMatch xs (tail ys) (n + 1) -- otherwise run again but lop off the first character of the search list and increment the index
 
 -- operator ##
 -- Takes two lists of the same type and
@@ -45,16 +53,7 @@ filterAB condition (x:xs) (y:ys)
   | otherwise   = filterAB condition xs ys
 
 -- sumEvenOdd
+-- Takes a list of numbers and returns a tuple of two numbers consisting of
+-- the sum of the even-index items and the sum of the odd-index items
 sumEvenOdd :: Num a => [a] -> (a, a)
-{-
-  The assignment requires sumEvenOdd to be written using a fold.
-  Something like this:
-
-    sumEvenOdd xs = fold* ... xs where
-        ...
-
-  Above, "..." should be replaced by other code. The "fold*" must be
-  one of the following: foldl, foldr, foldl1, foldr1.
--}
 sumEvenOdd _ = (0, 0)  -- DUMMY; REWRITE THIS!!!
-
